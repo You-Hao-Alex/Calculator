@@ -3,25 +3,25 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 	(function() {
 
 		$scope.view;
-		//将输入的代运算添加为数组-全局变量 OK
+		//use array to store the input
 		$scope.input = [];
 
-		//读取$scope.input信息并显示 OK
+		//read from $scope.input, then display
 		function view() {
 			$scope.view = $scope.input.join("");
 			$scope.$apply();
 		}
 
-		//syntaxErrorCode显示 OK
+		//syntaxErrorCode
 		function syntaxErrorCode(code) {
 			alert(code);
 		}
 
 		function syntaxError() {
-			alert("输入的语法错误，请修改！");
+			alert("incorrect input, please enter again");
 		}
 
-		//  计算开始
+		//Start to calculate
 		//GET SIGN
 		//+
 		document.querySelector('#signPlus').onclick = signPlus;
@@ -51,22 +51,8 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			$scope.input.push("/");
 			view();
 		}
-		//()
-//		document.querySelector('#signParL').onclick = signParL;
-//
-//		function signParL() {
-//			$scope.input.push("(");
-//			view();
-//		}
-//
-//		document.querySelector('#signParR').onclick = signParR;
-//
-//		function signParR() {
-//			$scope.input.push(")");
-//			view();
-//		}
-		//  1/x
-
+		
+		//^2
 		document.querySelector('#signSquare').onclick = signSquare;
 
 		function signSquare() {
@@ -75,6 +61,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			view();
 		}
 
+		//^3
 		document.querySelector('#signCube').onclick = signCube;
 
 		function signCube() {
@@ -83,14 +70,15 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			view();
 		}
 
+		//^y
 		document.querySelector('#signExpY').onclick = signExpY;
 
 		function signExpY() {
 			$scope.input.push("^");
-			//$scope.input.push("(");
 			view();
 		}
 		
+		//√
 		document.querySelector('#sqrt').onclick = sqrt;
 
 		function sqrt() {
@@ -106,14 +94,16 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			$scope.input.pop();
 			view();
 		}
+
 		//C
 		document.querySelector('#reset').onclick = reset;
 
 		function reset() {
-			//从index=0开始删除==清空
+			//delete from index=0
 			$scope.input.splice(0);
 			view();
 		}
+
 		//NUMBER
 		document.querySelector('#num0').onclick = num0;
 
@@ -184,31 +174,32 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			$scope.input.push("9");
 			view();
 		}
-		//DOT
+
+		//'.'
 		document.querySelector('#signDot').onclick = signDot;
 
 		function signDot() {
 			$scope.input.push(".");
 			view();
 		}
-
-		//常量替换 π e OK
+		
+		
+		//change π and e into real number (for next step)
 		function constantReplace() {
-			//    alert("进入常数替换");
 			for(var c = 0; $scope.input.length > c; c++) {
 				if(!isNaN($scope.input[c]) && $scope.input[c + 1] == "π") {
 					$scope.input.splice(c + 1, 1, "*", "3.1415926");
 				}
 
 				if(!isNaN($scope.input[c + 1]) && $scope.input[c] == "π") {
-					syntaxErrorCode("π 后面有数字，无法计算~~");
+					syntaxErrorCode("You can't put a number after π");
 					return false;
 				}
 				if($scope.input[c] == "π") {
 					$scope.input.splice(c, 1, "3.1415926");
 				}
 				if($scope.input[c] == "e" && !isNaN($scope.input[c + 1])) {
-					syntaxErrorCode("e 后面有数字，无法计算~~");
+					syntaxErrorCode("You can't put a number after e");
 					return false;
 				}
 				if(!isNaN($scope.input[c]) && $scope.input[c + 1] == "e") {
@@ -220,105 +211,70 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 			return true;
 		}
+		
 
-		//语法检查 return boolean
+		//syntax testing: return boolean
 		function syntaxTest() {
 
-			//$scope.input不能为空，但不是错 ok
+			//$scope.input should not be empty
 			if($scope.input.length == 0) {
 				return false;
 			}
-			//首元素不能是* / % ) exp符号 ok
-			if($scope.input[0] == "*" || $scope.input[0] == "/" || $scope.input[0] == "%" || $scope.input[0] == ")" || $scope.input[0] == "^") {
-				syntaxErrorCode("把 " + $scope.input[0] + " 放在前面怎么计算啊~");
+			//* / + - should not at the first place 
+			if($scope.input[0] == "*" || $scope.input[0] == "/" || $scope.input[0] == "%" ||  $scope.input[0] == "^") {
+				syntaxErrorCode($scope.input[0] + " can't be put at the beginning!");
 				return false;
 			}
 			
-			//尾部不能是+ - * / ( 符号 OK
-			if($scope.input[$scope.input.length - 1] == "+" || $scope.input[$scope.input.length - 1] == "-" || $scope.input[$scope.input.length - 1] == "*" || $scope.input[$scope.input.length - 1] == "/" || $scope.input[$scope.input.length - 1] == "(") {
-				syntaxErrorCode("把" + $scope.input[$scope.input.length - 1] + "放在末尾搞毛线~");
+			//+ - * / should not at the end
+			if($scope.input[$scope.input.length - 1] == "+" || $scope.input[$scope.input.length - 1] == "-" || $scope.input[$scope.input.length - 1] == "*" || $scope.input[$scope.input.length - 1] == "/" || $scope.input[$scope.input.length - 1] == "√" || $scope.input[$scope.input.length - 1] == "^") {
+				syntaxErrorCode($scope.input[$scope.input.length - 1] + "should not at the end");
 				return false;
 			}
-			//+ - .后面是数字的情况（首元素） OK
+			//+ - . followed with a number
 			if($scope.input[0] == "+" || $scope.input[0] == "-" || $scope.input[0] == ".") {
-				//第一个为正负号且下一个是数字，则在第一个元素添加0
+				//add a '0' at the first place if start with '+' or '-'
 				$scope.input.splice(0, 0, "0");
 			}
 
 			for(var j = 0; $scope.input.length > j; j++) {
-				//对加法减法运算符重复出现的情况，进行简化（后面的元素 -- ++ -+ +-）
-				//-- => + OK
+				//change ++ to +, +- to -, -- to +, -+ to -
+				//-- => + 
 				if($scope.input[j] == "-" && $scope.input[j + 1] == "-") {
 					$scope.input.splice(j, 1, "+");
 					$scope.input.splice(j + 1, 1);
 				}
-				//-+ => - OK
+				//-+ => - 
 				if($scope.input[j] == "-" && $scope.input[j + 1] == "+") {
 					$scope.input.splice(j + 1, 1);
 				}
-				//++ => + OK
+				//++ => + 
 				if($scope.input[j] == "+" && $scope.input[j + 1] == "+") {
 					$scope.input.splice(j + 1, 1);
 				}
-				//+- => - OK
+				//+- => - 
 				if($scope.input[j] == "+" && $scope.input[j + 1] == "-") {
 					$scope.input.splice(j, 1);
 				}
 
-				//(.2   ).2的情况排除  OK
-				if(($scope.input[j] == "(" || $scope.input[j] == ")") && $scope.input[j + 1] == ".") {
-					syntaxErrorCode("(.这样的运算我不知道什么意思哦~");
-					return false;
-				}
-
-				//对于+.2的情况，在前面加上0  +0.2
+				//when entering '+.1', calculate '+0.1'
 				if($scope.input[j] == "." && !isNaN($scope.input[j + 1]) && isNaN($scope.input[j - 1])) {
 					$scope.input.splice(j, 0, "0");
 				}
-
-				//三角函数 log ln 先后判断3sin=3*sin
-				if(($scope.input[j + 1] == "sin" || $scope.input[j + 1] == "cos" || $scope.input[j + 1] == "tan" || $scope.input[j + 1] == "cot" || $scope.input[j + 1] == "log" || $scope.input[j + 1] == "ln") && !isNaN($scope.input[j])) {
-					$scope.input.splice(j + 1, 0, "*");
-				}
-			}
-			//三角函数后面只能跟（或者数字
-			if(($scope.input[j] == "sin" || $scope.input[j] == "√" || $scope.input[j] == "cos" || $scope.input[j] == "tan" || $scope.input[j] == "cot" || $scope.input[j] == "log" || $scope.input[j] == "ln") && ($scope.input[j + 1] != "(" || isNaN($scope.input[j + 1]))) {
-				syntaxErrorCode("我看不懂这个，" + $scope.input[j] + $scope.input[j + 1]);
-				return false;
+				
 			}
 
-			
-
-			var left = 0;
-			var right = 0;
 			for(var i = 0; i < $scope.input.length; i++) {
-				//forbidden / * exp ( 组合
-				if(($scope.input[i] == "*" || $scope.input[i] == "/" || $scope.input[i] == "^" || $scope.input[i] == "(" || $scope.input[i] == "+" || $scope.input[i] == "-") && ($scope.input[i + 1] == "*" || $scope.input[i + 1] == "/" || $scope.input[i + 1] == "^" || $scope.input[i + 1] == ")")) {
-					syntaxErrorCode("你确定要这么写吗？ ……" + $scope.input[i] + $scope.input[i + 1] + "……");
+				//forbid / * combinition
+				if(($scope.input[i] == "*" || $scope.input[i] == "/" || $scope.input[i] == "^" || $scope.input[i] == "+" || $scope.input[i] == "-") && ($scope.input[i + 1] == "*" || $scope.input[i + 1] == "/" || $scope.input[i + 1] == "^" || $scope.input[i + 1] == ")")) {
+					syntaxErrorCode("input not correct");
 					return false;
-				}
-				//(+  (-的情况,改为（0+1 （0-1
-				if($scope.input[i] == "(" && ($scope.input[i + 1] == "-" || $scope.input[i + 1] == "+")) {
-					$scope.input.splice(i + 1, 0, "0");
-				}
-				//括号统计
-				if($scope.input[i] == "(") {
-
-					left++;
-				}
-				if($scope.input[i] == ")") {
-					right++;
-				}
-			}
-
-			if(left != right) {
-				syntaxErrorCode("左右括号数量不一致，你再检查下！");
-				return false;
-			}
+				}	
+			}			
 			return true;
 		}
 
-		//数字合并 OK
+		//Combine numbers
 		function numberCombine() {
 			for(var i = 0; $scope.input.length > i; i++) {
 				while($scope.input.length > i) {
@@ -337,7 +293,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 		}
 
-		//点合并，小数 OK
+		//use '.' to generate double
 		function dotCombine() {
 			while($scope.input.indexOf(".") != -1) {
 				var dotPosition = $scope.input.indexOf(".");
@@ -347,7 +303,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 		}
 
-		//幂运算
+		//implement ^
 		function Pow(segment) {
 			while(segment.indexOf("^") != -1) {
 				segment[segment.indexOf("^") - 1] = Math.pow(parseFloat(segment[segment.indexOf("^") - 1]), parseFloat(segment[segment.indexOf("^") + 1]));
@@ -361,7 +317,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 			
 		}
-		//三角函数方法，log，ln方法
+		//trigonometric functions，log and ln
 		function Sin(segment) {
 			while(segment.indexOf("sin") != -1) {
 				segment[segment.indexOf("sin") + 1] = Math.sin(parseFloat(segment[segment.indexOf("sin") + 1]));
@@ -404,7 +360,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 		}
 
-		//乘除运算
+		//* and /
 		function MulDiv(segment) {
 			while(segment.indexOf("*") != -1 || segment.indexOf("/") != -1) {
 				if(segment.indexOf("*") != -1) {
@@ -417,7 +373,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 		}
 
-		//加减运算
+		//+ and -
 		function AddSub(segment) {
 			while(segment.indexOf("-") != -1 || segment.indexOf("+") != -1) {
 				if(segment.indexOf("-") != -1) {
@@ -430,7 +386,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 		}
 
-		//给定片段进行计算，不包括（）
+		//calculate for segment
 		function segmentCalcute(segment) {
 			while(segment.length != 1) {
 				Sin(segment);
@@ -446,37 +402,18 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			}
 		}
 
-		//最终运算
+		//final calculate
 		function calculation() {
 			var leftStart;
 			var rightStop;
-			//如果$scope.input只有一个元素代表计算完毕
+			//if $scope.input only has one element, then finish
 			while($scope.input.length != 1) {
-				//对于有括号的情况，找到左右括号位置 ，并计算
-				while($scope.input.lastIndexOf("(") != -1) {
-					//找到左右括号位置
-					leftStart = $scope.input.lastIndexOf("(");
-					for(; $scope.input.length > leftStart; leftStart++) {
-						if($scope.input[leftStart] == ")") {
-							rightStop = leftStart;
-							break;
-						}
-					}
-					leftStart = $scope.input.lastIndexOf("(");
-					var segment = $scope.input.slice(leftStart + 1, rightStop);
-					$scope.input.splice(leftStart + 1, rightStop - leftStart);
-					//            进行计算，输入最小可计算片段
-					segmentCalcute(segment);
-					$scope.input[leftStart] = segment[0];
-				}
-				//进行最后没有括号的运算
 				segmentCalcute($scope.input);
 			}
 		}
 
 		//RESULT
 		function result() {
-			//常量替换
 			if(!constantReplace()) {
 				return;
 			}
@@ -489,7 +426,6 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 			calculation();
 			view();
 		}
-		//事件触发
 		document.querySelector('#result').onclick = result;
 
 	})();
