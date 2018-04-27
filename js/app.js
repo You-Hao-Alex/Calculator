@@ -90,7 +90,6 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 		document.querySelector('#signDel').onclick = signDel;
 
 		function signDel() {
-			//取出一个
 			$scope.input.pop();
 			view();
 		}
