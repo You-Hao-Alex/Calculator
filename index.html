@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/3.3.5/css/bootstrap.min.css">
+    <title>Calculator</title>
+</head>
+
+<body ng-app="app" ng-controller="appCtrl">
+    <div>
+        <!--container-->
+        <div class="container">
+            <div class="inner">
+                <div class="brand-name"><strong>calculator</strong>
+                </div>
+                <!-- 视窗 -->
+                <div class="views">
+                    <!-- 输入输出显示框 -->
+                    <input type="text" id="view" class="form-control form-input" value="0" ng-model="view" placeholder="0" required autofocus readonly="readonly">
+                    <!-- 按键区 -->
+                    <div class="numbers">
+                      
+                        <!-- 左括号 -->
+                        <!--<button id="signParL" class="btn label-info form-button" style="top:0px; left:-140px;"><strong class="num-size">(</strong>
+                        </button>-->
+                        <!-- 右括号 -->
+                        <!--<button id="signParR" class="btn label-info form-button" style="top:0px; left:-70px;"><strong class="num-size">)</strong>
+                        </button>-->
+                        <!-- 圆周率π -->
+                        <!--<button id="signPai" class="btn label-info form-button" style="top:0px; left:140px;"><strong class="num-size">π</strong>-->
+                        <!--</button>-->
+                        <!-- 常数e -->
+                        <!--<button id="signE" class="btn label-info form-button" style="top:0px; left:210px;"><strong class="num-size">e</strong>
+                        </button>-->
+                        <!-- 除以 -->
+                        <button id="signDiv" class="btn label-info form-button" style="top:210px; left:210px;"><strong class="num-size">/</strong>
+                        </button>
+                        <!-- 乘号 -->
+                        <button id="signMult" class="btn label-info form-button" style="top:140px; left:210px;"><strong class="num-size">*</strong>
+                        </button>
+                        <!-- 清除C -->
+                        <button id="reset" class="btn label-danger form-button" style="top:0px; left:350px;"><strong class="num-size">C</strong>
+                        </button>
+                        <!-- 清除 -->
+                        <button id="signDel" class="btn label-danger form-button" style="top:70px; left:350px;"><strong class="num-size">Del</strong>
+                        </button>
+                        <!-- 按键7 -->
+                        <button id="num7" class="btn btn-primary form-button" style="top:0px; left:0px;"><strong class="num-size">7</strong>
+                        </button>
+                        <!-- 按键8 -->
+                        <button id="num8" class="btn btn-primary form-button" style="top:0px; left:70px;"><strong class="num-size">8</strong>
+                        </button>
+                        <!-- 按键9 -->
+                        <button id="num9" class="btn btn-primary form-button" style="top:0px; left:140px;"><strong class="num-size">9</strong>
+                        </button>
+                        <!-- 减号兼负号 -->
+                        <button id="signMinus" class="btn label-info form-button" style="top:70px; left:210px;"><strong class="num-size">-</strong>
+                        </button>
+                        <!-- 数字4 -->
+                        <button id="num4" class="btn btn-primary form-button" style="top:70px; left:0px;"><strong class="num-size">4</strong>
+                        </button>
+                        <!-- 数字5 -->
+                        <button id="num5" class="btn btn-primary form-button" style="top:70px; left:70px;"><strong class="num-size">5</strong>
+                        </button>
+                        <!-- 数字6 -->
+                        <button id="num6" class="btn btn-primary form-button" style="top:70px; left:140px;"><strong class="num-size">6</strong>
+                        </button>
+                        <!-- 加号兼正号 -->
+                        <button id="signPlus" class="btn label-info form-button" style="top:0px; left:210px;"><strong class="num-size">+</strong>
+                        </button>
+                        <!-- 数字1 -->
+                        <button id="num1" class="btn btn-primary form-button" style="top:140px; left:0px;"><strong class="num-size">1</strong>
+                        </button>
+                        <!-- 数字2 -->
+                        <button id="num2" class="btn btn-primary form-button" style="top:140px; left:70px;"><strong class="num-size">2</strong>
+                        </button>
+                        <!-- 数字3 -->
+                        <button id="num3" class="btn btn-primary form-button" style="top:140px; left:140px;"><strong class="num-size">3</strong>
+                        </button>
+                        <!-- 等于 -->
+                        <button id="result" class="btn btn-warning form-button" style="top:140px; left:350px; height:130px !important;"><strong class="num-size">=</strong>
+                        </button>
+                        <!-- 数字0 -->
+                        <button id="num0" class="btn btn-primary form-button" style="top:210px; left:0px;"><strong class="num-size">0</strong>
+                        </button>
+                        <!-- 小数点 -->
+                        <button id="signDot" class="btn btn-primary form-button" style="top:210px; left:70px; width:130px !important;"><strong class="num-size">.</strong>
+                        </button>
+                       <!-- 指数幂 -->
+							<button id="signSquare" class="btn label-info form-button" style="top:0px; left:280px;"><strong class="num-size">x<sup>2</sup></strong>
+                        </button>
+							<button id="signCube" class="btn label-info form-button" style="top:70px; left:280px;"><strong class="num-size">x<sup>3</sup></strong>
+                        </button>
+							<button id="signExpY" class="btn label-info form-button" style="top:210px; left:280px;"><strong class="num-size">x<sup>y</sup></strong>
+                        </button>
+							<button id="sqrt" class="btn label-info form-button" style="top:140px; left:280px;"><strong class="num-size">	&radic;x</strong>
+                        </button>
+							<!-- end 指数幂 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
