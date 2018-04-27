@@ -265,7 +265,7 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 
 			for(var i = 0; i < $scope.input.length; i++) {
 				//forbid / * combinition
-				if(($scope.input[i] == "*" || $scope.input[i] == "/" || $scope.input[i] == "^" || $scope.input[i] == "+" || $scope.input[i] == "-") && ($scope.input[i + 1] == "*" || $scope.input[i + 1] == "/" || $scope.input[i + 1] == "^" || $scope.input[i + 1] == ")")) {
+				if(($scope.input[i] == "*" || $scope.input[i] == "/" || $scope.input[i] == "^" || $scope.input[i] == "+" || $scope.input[i] == "-") && ($scope.input[i + 1] == "*" || $scope.input[i + 1] == "/" || $scope.input[i + 1] == "^")) {
 					syntaxErrorCode("input not correct");
 					return false;
 				}	
