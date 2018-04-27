@@ -1,4 +1,4 @@
-/*主容器*/
+/*Main container*/
 
 .container {
     position: relative;
@@ -25,7 +25,7 @@
 }
 
 
-/*视窗*/
+/*Views*/
 
 .views {
     position: absolute;
@@ -35,7 +35,7 @@
 }
 
 
-/*显示框*/
+/*Display*/
 
 .form-input {
     display: inline-block;
@@ -58,7 +58,7 @@
 }
 
 
-/*按键区*/
+/*Buttons*/
 
 .numbers {
     position: absolute;
