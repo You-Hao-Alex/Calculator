@@ -404,8 +404,6 @@ var app = angular.module('app', []).controller('appCtrl', function($scope, commo
 
 		//final calculate
 		function calculation() {
-			var leftStart;
-			var rightStop;
 			//if $scope.input only has one element, then finish
 			while($scope.input.length != 1) {
 				segmentCalcute($scope.input);
